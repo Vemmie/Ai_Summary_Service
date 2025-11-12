@@ -1,3 +1,5 @@
+**Instructions to use:**
+```
 Create a venv:
 python -m venv .venv
 
@@ -8,8 +10,15 @@ To actitivate in the terminal:
 
 Install dependencies:
 pip install -r requirements.txt
+```
 
-Format for JSON:
+> The service will take a json with the following attributes and the content array will be an array of json to summarize. 
+
+**To send information:**
+Use the Api end point: "/api/ai_summary_service"
+
+Format for JSON in POST request:
+```json
 {
   "summary_length": "medium",
   "additional_info": "yes",
@@ -23,5 +32,15 @@ Format for JSON:
     }
   ]
 }
+```
 
-The service will take a json with the following attributes and the content array will be an array of json to summarize. 
+**To recieve information**
+Store the json as it's sent back as a response object
+> example with react
+```react
+  .then((res) => res.json()) // Convert response to JSON
+  .then((data) => {
+    console.log(data);
+    // You can now use the data in your component state
+  })
+```
