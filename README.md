@@ -1,4 +1,8 @@
 **Instructions to use:**
+
+Description: The service will take a json with the following attributes and the content array will be an array of json to summarize. 
+
+**Initialization after cloning:**
 ```
 Create a venv:
 python -m venv .venv
@@ -12,12 +16,36 @@ Install dependencies:
 pip install -r requirements.txt
 ```
 
-> The service will take a json with the following attributes and the content array will be an array of json to summarize. 
+**How to request information:**
+Use the either Api end point: 
+1. "http://127.0.0.1:5001/api/ai_summary_service"
+2. "http://192.168.0.204:5001/api/ai_summary_service"
 
-**To send information:**
-Use the Api end point: "/api/ai_summary_service"
+Have some program send a POST request to the API
 
-Format for JSON in POST request:
+**Example Request on React**
+```javascript
+fetch("http://127.0.0.1:5001/api/ai_summary_service", {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json"
+  },
+  body: JSON.stringify({
+    summary_length: "medium",
+    additional_info: "yes",
+    content: [
+      { 
+        text: "Frieren: Beyond Journey's End is a Japanese manga series written by Kanehito Yamada and illustrated by Tsukasa Abe. It follows Frieren, an elven mage on a journey to reunite with her former comrade Himmel."
+      },
+      {
+        text: "The story takes place over a long time, as Frieren's elven lifespan makes years seem ephemeral."
+      }
+    ]
+  })
+})
+```
+
+Format for JSON in Post Request Body:
 ```json
 {
   "summary_length": "medium",
@@ -34,10 +62,11 @@ Format for JSON in POST request:
 }
 ```
 
-**To recieve information**
+**How recieve information**
 Store the json as it's sent back as a response object
-> example with react
-```react
+
+example with react after the fetch:
+```javascript
   .then((res) => res.json()) // Convert response to JSON
   .then((data) => {
     console.log(data);
