@@ -1,5 +1,8 @@
 from flask import Flask, jsonify, request
 from Ai_service import call_gemini_summary
+from flask_cors import CORS
+from dotenv import load_dotenv 
+import os
 # creating a Flask app
 
 '''
@@ -15,8 +18,11 @@ Install dependencies:
 pip install -r requirements.txt
 '''
 
+load_dotenv()
 # on the terminal type: curl http://127.0.0.1:5001/
 app = Flask(__name__)
+frontend_url = os.getenv("FRONTEND_URL")
+CORS(app, origins=[frontend_url])
 
 # Post route for the API ai service
 @app.route('/api/ai_summary_service', methods = ['POST'])
